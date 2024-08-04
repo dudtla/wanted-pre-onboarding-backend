@@ -1,0 +1,98 @@
+-------------------사용자-------------------
+--공고 목록 가져오기
+SELECT 
+    R.NOTICE_ID AS "채용공고_ID",
+    C.NAME AS "회사명",
+    R.NATION AS "국가",
+    R.AREA AS "지역",
+    R.POSITION AS "채용포지션",
+    R.REWARD AS "채용보상금",
+    R.SKILL AS "사용기술"
+FROM 
+    RECRUITMENT R
+JOIN 
+    COMPANY C ON R.COM_ID = C.COM_ID;
+    
+--검색
+SELECT 
+    R.NOTICE_ID,
+    C.NAME,
+    R.NATION,
+    R.AREA,
+    R.POSITION,
+    R.REWARD,
+    R.SKILL
+FROM 
+    RECRUITMENT R
+JOIN 
+    COMPANY C ON R.COM_ID = C.COM_ID
+WHERE 
+    R.SKILL LIKE '%Python%'; 
+
+--상세조회
+SELECT 
+    R.NOTICE_ID AS "채용공고_ID",
+    C.NAME AS "회사명",
+    R.NATION AS "국가",
+    R.AREA AS "지역",
+    R.POSITION AS "채용포지션",
+    R.REWARD AS "채용보상금",
+    R.SKILL AS "사용기술",
+    R.DETAIL AS "상세내용"
+FROM 
+    RECRUITMENT R
+JOIN 
+    COMPANY C ON R.COM_ID = C.COM_ID
+WHERE 
+    R.NOTICE_ID = 1
+    OR R.COM_ID = 1;
+    
+--공고지원
+UPDATE USERS
+SET 
+    APPLY_YN = 'N',
+    APPLY_NO = 3  --공고번호
+WHERE 
+    NO = 1;  --유저번호
+
+
+-------------------회사-------------------
+--공고등록
+INSERT INTO RECRUITMENT (
+    NOTICE_ID,
+    POSITION,
+    REWARD,
+    SKILL,
+    DETAIL,
+    NATION,
+    AREA,
+    COM_ID
+) VALUES (
+    SEQ_NOTICE.NEXTVAL
+    ,'test'     
+    ,'test'    
+    ,'test'                            
+    ,'test' 
+    ,'test'            
+    ,'test'                  
+    ,1                       
+);
+
+--공고수정
+UPDATE RECRUITMENT
+SET 
+    POSITION = 'test11',
+    REWARD = 'test11',
+    SKILL = 'test11',
+    DETAIL = 'test11',
+    NATION = 'test11',
+    AREA = 'test11',
+    COM_ID = 1
+WHERE 
+    NOTICE_ID = 8;  -- 업데이트할 공고번호
+
+--공고삭제
+DELETE FROM RECRUITMENT
+WHERE NOTICE_ID = 8;
+    
+
