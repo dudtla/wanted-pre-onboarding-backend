@@ -3,8 +3,8 @@
 SELECT 
     R.NOTICE_ID AS "채용공고_ID",
     C.NAME AS "회사명",
-    R.NATION AS "국가",
-    R.AREA AS "지역",
+    C.NATION AS "국가",
+    C.AREA AS "지역",
     R.POSITION AS "채용포지션",
     R.REWARD AS "채용보상금",
     R.SKILL AS "사용기술"
@@ -14,11 +14,12 @@ JOIN
     COMPANY C ON R.COM_ID = C.COM_ID;
     
 --검색
+--기술: LOWER 함수 사용하여 대소문자 구분없이 검색 가능
 SELECT 
     R.NOTICE_ID,
-    C.NAME,
-    R.NATION,
-    R.AREA,
+    C.NAME AS COMPANY_NAME,
+    C.NATION,
+    C.AREA,
     R.POSITION,
     R.REWARD,
     R.SKILL
@@ -27,14 +28,30 @@ FROM
 JOIN 
     COMPANY C ON R.COM_ID = C.COM_ID
 WHERE 
-    R.SKILL LIKE '%Python%'; 
+    LOWER(R.SKILL) LIKE LOWER('%PYthon%');
+
+--회사
+SELECT 
+    R.NOTICE_ID,
+    C.NAME,
+    C.NATION,
+    C.AREA,
+    R.POSITION,
+    R.REWARD,
+    R.SKILL
+FROM 
+    RECRUITMENT R
+JOIN 
+    COMPANY C ON R.COM_ID = C.COM_ID
+WHERE 
+    C.NAME LIKE '%당근%';
 
 --상세조회
 SELECT 
     R.NOTICE_ID AS "채용공고_ID",
     C.NAME AS "회사명",
-    R.NATION AS "국가",
-    R.AREA AS "지역",
+    C.NATION AS "국가",
+    C.AREA AS "지역",
     R.POSITION AS "채용포지션",
     R.REWARD AS "채용보상금",
     R.SKILL AS "사용기술",
