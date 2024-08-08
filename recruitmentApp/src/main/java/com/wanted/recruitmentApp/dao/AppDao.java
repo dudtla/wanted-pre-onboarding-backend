@@ -48,4 +48,19 @@ public class AppDao {
     public List<AppVo> searchByName(String name) {
         return mapper.searchByName(name);
     }
+
+    //상세조회
+    public List<AppVo> detail(String noticeId) {
+        return mapper.detail(noticeId);
+    }
+
+    //채용신청
+    public int apply(AppVo vo) {
+        return mapper.apply(vo);
+    }
+
+    //채용 중복 신청 확인
+    public String checkApply(AppVo vo) {
+        return mapper.checkApply(vo);
+    }
 }

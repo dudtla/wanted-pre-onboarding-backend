@@ -51,5 +51,23 @@ public class AppService {
         }
 
     }
+
+
+    //상세조회
+    public List<AppVo> detail(String noticeId) {
+        return dao.detail(noticeId);
+    }
+
+    //채용신청
+    public int apply(AppVo vo) {
+
+        //채용 신청 중복 검사
+        String applyYn = dao.checkApply(vo);
+        if("Y".equals((applyYn))){
+            return 0;
+        }
+
+        return dao.apply(vo);
+    }
 }
 

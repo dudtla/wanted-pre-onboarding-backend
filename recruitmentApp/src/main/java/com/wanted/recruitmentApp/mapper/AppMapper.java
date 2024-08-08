@@ -4,6 +4,7 @@ package com.wanted.recruitmentApp.mapper;
 import com.wanted.recruitmentApp.vo.AppVo;
 import java.util.List;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
 public interface AppMapper {
@@ -106,4 +107,45 @@ public interface AppMapper {
                 C.NAME LIKE('%' || #{name} || '%')
             """)
     List<AppVo> searchByName(String name);
+
+
+    //상세조회
+    @Select("""
+            SELECT\s
+                R.NOTICE_ID,
+                C.NAME,
+                C.NATION,
+                C.AREA,
+                R.POSITION,
+                R.REWARD,
+                R.SKILL,
+                R.DETAIL
+            FROM\s
+                RECRUITMENT R
+            JOIN\s
+                COMPANY C ON R.COM_ID = C.COM_ID
+            WHERE\s
+                R.NOTICE_ID = #{noticeId}
+            """)
+    List<AppVo> detail(String noticeId);
+
+
+    //채용신청
+    @Update("""
+            UPDATE USERS
+            SET\s
+                APPLY_YN = 'Y',
+                APPLY_NOTICE_ID = #{applyNoticeId}
+            WHERE\s
+                NO = #{no}
+            """)
+    int apply(AppVo vo);
+
+    //채용 중복 검사
+    @Select("""
+            SELECT APPLY_YN\s
+            FROM USERS
+            WHERE NO = #{no}
+            """)
+    String checkApply(AppVo vo);
 }
