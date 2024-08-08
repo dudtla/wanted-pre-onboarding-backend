@@ -48,29 +48,34 @@ WHERE
 
 --상세조회
 SELECT 
-    R.NOTICE_ID AS "채용공고_ID",
-    C.NAME AS "회사명",
-    C.NATION AS "국가",
-    C.AREA AS "지역",
-    R.POSITION AS "채용포지션",
-    R.REWARD AS "채용보상금",
-    R.SKILL AS "사용기술",
-    R.DETAIL AS "상세내용"
+    R.NOTICE_ID,
+    C.NAME,
+    C.NATION,
+    C.AREA,
+    R.POSITION,
+    R.REWARD,
+    R.SKILL,
+    R.DETAIL
 FROM 
     RECRUITMENT R
 JOIN 
     COMPANY C ON R.COM_ID = C.COM_ID
 WHERE 
-    R.NOTICE_ID = 1
-    OR R.COM_ID = 1;
-    
+    R.NOTICE_ID = 1;
+
 --공고지원
 UPDATE USERS
 SET 
-    APPLY_YN = 'N',
-    APPLY_NO = 3  --공고번호
+    APPLY_YN = 'Y',
+    APPLY_NOTICE_ID = 3  --공고번호
 WHERE 
     NO = 1;  --유저번호
+
+--중복 체크 여부
+SELECT APPLY_YN 
+FROM USERS
+WHERE NO = 1; 
+
 
 
 -------------------회사-------------------

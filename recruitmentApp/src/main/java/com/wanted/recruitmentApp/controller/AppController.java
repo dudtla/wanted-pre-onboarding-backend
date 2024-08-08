@@ -68,16 +68,40 @@ public class AppController {
     }
 
     //채용공고 상세 조회
+    @GetMapping("detail")
+    public List<AppVo> detail(String noticeId){
+        List<AppVo> voList = service.detail(noticeId);
+        return voList;
+    }
+
 
     //채용공고 검색(기술 or 회사명)
     @GetMapping("search")
     public List<AppVo> search(@RequestParam(value = "skill", required = false) String skill,
                               @RequestParam(value = "name", required = false) String name){
         List<AppVo> voList = service.search(skill, name);
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@skill = " + skill + ", name = " + name);
-        System.out.println("@@@@@@@@@@22voList = " + voList);
+
         return voList;
     }
 
     //채용공고 지원
+    @GetMapping("apply")
+    public ResponseEntity<String> apply(AppVo vo){
+        //임의로 공고번호와 유저번호 지정
+        int userNo = 1;
+        int applyNo = 3;
+        vo.setNo(userNo);
+        vo.setApplyNoticeId(applyNo);
+
+        int result = service.apply(vo);
+
+        if (result > 0) {
+            return ResponseEntity.ok("apply success!");
+        }else {
+            return ResponseEntity.ok("apply fail...");
+        }
+
+
+    }
+
 }

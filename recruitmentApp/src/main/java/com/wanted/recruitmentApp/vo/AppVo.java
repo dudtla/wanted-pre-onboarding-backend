@@ -15,8 +15,8 @@ public class AppVo {
     private String nation;
     private String area;
 
-    private String no;
+    private int no;
     private String userId;
     private String applyYn;
-    private String applyNo;
+    private int applyNoticeId;
 }
